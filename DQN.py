@@ -36,7 +36,7 @@ class DQN(object):
 
         # Output layer
         init = xavier_initializer()
-        w = tf.Variable(init([4160, GameEnv.a_size]))
+        w = tf.Variable(init([1664, GameEnv.a_size]))
 
         self.q_vals = tf.matmul(self.flat, w)
         self.predict = tf.argmax(self.q_vals, axis=1)
