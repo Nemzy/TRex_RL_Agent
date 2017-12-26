@@ -27,16 +27,12 @@ class DQN(object):
         self.conv3 = slim.conv2d(inputs=self.conv2, num_outputs=64, kernel_size=[5, 5], stride=[2, 2], padding='VALID',
                                  biases_initializer=None)
 
-        # Forth convolutional layer
-        self.conv4 = slim.conv2d(inputs=self.conv3, num_outputs=128, kernel_size=[5, 5], stride=[2, 2], padding='VALID',
-                                 biases_initializer=None)
-
         # Flatten the output of convolutions
-        self.flat = slim.flatten(self.conv4)
+        self.flat = slim.flatten(self.conv3)
 
         # Output layer
         init = xavier_initializer()
-        w = tf.Variable(init([1664, GameEnv.a_size]))
+        w = tf.Variable(init([832, GameEnv.a_size]))
 
         self.q_vals = tf.matmul(self.flat, w)
         self.predict = tf.argmax(self.q_vals, axis=1)
